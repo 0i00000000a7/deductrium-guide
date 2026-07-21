@@ -4,4 +4,58 @@ title: 第七章 类型论W良基树前后
 
 # Deductrium 攻略第七章 类型论W良基树前后
 
-> 本章攻略待补充。
+## List
+
+$\List$类型有两个构造子：
+$\nil:\List\ ?1$空列表
+$\cons:?1\ra \List\ ?1\ra\List\ ?1$往列表尾部添加元素
+
+两个门都可以用$\nil$开，空列表的类型是任意的$\List\ ?0$
+
+
+${\rm{fillList}}：=\L a:\Uz.\L x:a.\ind{nat}\ (\L y:\nat.\List\ a)\ \nil\ (\ \L y:\nat.\L z:\List\ a.\cons\ x\ z)$
+
+解锁Option类型
+
+${\rm{lastList}}:=\L a:\Uz.\ind{List}\ (\L l:\List\ a.\Option\ a)\ \none\ (\L\ x:a.\L y:\List\ a.\L z:\Option\ a.\some\ x)$
+
+
+
+## Even
+
+[怎么过度到W类型？]: #Even
+[List做完解#W门吧]: #
+
+- Even意为偶数 该类型是递归定义的
+  有一个初始构造子even0:Even 0
+  和一个递归构造子evenss
+  其类型为 evenss x: (Even x)→(Even (x+2))
+- 第一道题 Even 0 十分简单
+  因为在上面那段文字里就有答案
+- 第二道题 Even 4 也很简单
+  使用evenss 即可
+  （答案：evenss 2  (evenss 0 even0)）
+
+
+
+
+
+
+
+## W
+[不对啊，我还没解锁W]: #
+看懂W类型了吗，我猜你看不懂良基树类型
+虽然sup看起来有点像pair，但是$\W{}$类型和$\S{}$类型是截然不同的基础类型
+不管了，直接看归纳，
+
+$\ind{W}:\P{b:?3\ra U{?1}}\P{C:(\W{x:?3}b\ x)\ra\U{?2}}(\P{x:?3}\P{f:b\ x\ra\W{x:?3}b\ x}(\P{y:b\ x}C(f\ y))\ra C(\sup\ b\ x\ f))\ra \P{k:\W{x:?3}b\ x}C\ k$
+
+看懂了吗？我在说一遍：
+
+$\huge \ind{W}:\P{b:?3\ra U{?1}}\P{C:\frac{\hide{(}\W{x:?3}b\ x\hide{)}}{\hide{\ra}\U{?2}}}\frac{\hide{(}\P{x:?3}\ \ \ \P{f:b\ x\ra\W{x:?3}b\ x}\frac{\hide{(}\P{y:b\ x}C(f\ y)\hide{)}}{\hide{\ra} C(\sup\ b\ x\ f)}\hide{)}}{\hide{\ra}\P{k:\W{x:?3}b\ x}C\ k}$
+
+算了，不炫$\LaTeX$了我来点真的
+
+**<big>你想自制嵌套的归纳类型吗？你想       吗？赶快去  吧！</big>**
+填写构造子数量，构造子共尾度，马上得到一个归纳类型
+
