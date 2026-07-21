@@ -266,7 +266,7 @@ $$
 \P{a:\Uz}a\ra \not(\not\ a)
 $$
 先把这个抄写到定理列表然后启动证明助手：
-```
+```type
 intro a
 intro h
 expand not
@@ -281,7 +281,7 @@ $$
 \P{a:\Uz}\P{b:\Uz}(a \ra b) \ra ((\not\ b )\ra (\not\ a) )
 $$
 这是推理层的.a30，输入时注意括号
-```
+```type
 intro a 
 intro b 
 intro h 
@@ -298,7 +298,7 @@ qed
 $$
 \P{a:\Uz}\not(\not(\not\ a))\ra \not(a)
 $$
-```
+```type
 intro a
 expand not
 intro h
@@ -340,7 +340,7 @@ $\refl\ (\not\ \False)$
 
 $\eq{(\refl\ \true)}{(\refl\ \true)}$
 使用刚获得的$\rfl$策略：
-```
+```type
 rfl
 qed
 ```
@@ -464,7 +464,7 @@ $\ind{Bool} (\L a:\Bool.(\not (\eq{a}{0b}))\ra(\eq{b}{0b}))$
 我们还需要填入$(\not (\eq{0b}{0b}))\ra(\eq{0b}{1b})$和$((\not (\eq{1b}{0b}))\ra(\eq{1b}{1b}))$的证明
 
 先看后者，这是简单的：
-```
+```type
 intro h
 rfl
 qed
@@ -478,7 +478,7 @@ $case1b:=(\L h:\not (\eq\ 1b\ 0b).\rfl):((\not(\eq{1b}{0b})\ra(\eq{1b}{1b}))$
 
 我们先把这个定义成常量，当然也可以不定义
 $\rm{exfalso}:=\L a:\Uz.\ind{False} (\L x:\False.a)$
-```
+```type
 expand not
 intro h
 apply exfalso (eq 0b 1b)
@@ -545,7 +545,7 @@ $\False+\True$
 $$
 \P{x:Bool}(\eq{x}{0b})+(\eq{x}{1b})
 $$
-```
+```type
 intro x
 destruct x
 left
@@ -560,7 +560,7 @@ qed
 $$
 \P{a:\Uz}\not(\not(a+(\not\ a)))
 $$
-```
+```type
 intro a 
 expand not 
 intro h 
@@ -632,7 +632,8 @@ $$
 $$
 
 用pair或ex策略带入证明：
-```
+
+```type
 ex nat_is_zero
 simpl
 case
@@ -656,13 +657,14 @@ $$
 
 这里手搓$\ind{eq}$避免2.222mg的付费门
 
-```
+```type
 intro x
 destruct x
 rfl
 apply ind_eq (add 0 x) (Ly:nat.Lm:(eq (add 0 x) y).eq (succ (add 0 x)) (succ y)) rfl x x_
 qed
 ```
+
 把这个定义为一个常量nat_zero_add，后面需要用
 
 解锁rw/rwb策略
@@ -692,7 +694,8 @@ $$
 $$
 \P{x:\nat}\P{Πy:\nat}\eqs{(\add{(\Nsucc x)}{y})}{(\Nsucc(\add{x}{y}))}
 $$
-```
+
+```type
 simpl
 intro x
 intro y
@@ -704,7 +707,8 @@ qed
 ```
 
 主证明：
-```
+
+```type
 intro x
 intro y
 destruct y
@@ -734,7 +738,8 @@ $$
 $$
 \P{x:\nat}\P{y:\nat}\P{z:\nat}\eqs{(\add{x}{(\add{y}{z})})}{(\add{(\add{x}{y})}{z})}
 $$
-```
+
+```type
 intro x
 intro y
 intro z
@@ -749,7 +754,8 @@ qed
 $$
 \P{x:\nat}\P{y:\nat}\eqs{(\mul{(\Nsucc\ x)}{y})}{(\add{(\mul{x}{y})}{y})}
 $$
-```
+
+```type
 intro x
 intro y
 destruct y
@@ -761,10 +767,12 @@ rw nat_add_assoc (mul x y') x y'
 rfl
 qed
 ```
+
 $$
 \P{n:\nat}\eqs{(\mul{n}{2})}{(\double{n})}
 $$
-```
+
+```type
 intro n
 destruct n
 rfl
@@ -773,11 +781,13 @@ rw n_
 rfl
 qed
 ```
+
 nat_mul_comm:
 $$
 \P{x:\nat}\P{y:\nat}\eqs{(\mul{x}{y})}{(\mul{y}{x})}
 $$
-```
+
+```type
 intro x
 intro y
 destruct y
@@ -788,20 +798,25 @@ rw y_
 rfl
 qed
 ```
+
 解锁幂函数$\pow{}{}$
-```
+
+```type
 factorial2:=Lx:nat.pr1 (ind_nat (Lx:nat.natXnat) (1,1) (Lx:nat.Lt:natXnat.(pr1 t,mul (succ x)(pr0 t))) x)
 ```
-```
+
+```type
 Combin  :=  λn:nat.λk:nat.ind_nat (λx:nat.nat→nat) (λk:nat.ind_nat (λx:nat.nat) 1 (λx:nat.λx:nat.0) k) (λx:nat.λr:nat→nat.(λr:nat→nat.λk:nat.ind_nat (λx:nat.nat) 1 (λk':nat.λrec:nat.add (r k') (r (succ k'))) k) r) n k
 ```
+
 +13.86mg推理素
 
 nat_mul_add:
 $$
 \P{x:\nat}\P{y:\nat}\P{z:\nat}\eqs{(\mul{x}{(\add{y}{z})})}{(\add{(\mul{x}{y})}{(\mul{x}{z})})}
 $$
-```
+
+```type
 intro x
 intro y
 intro z
@@ -814,12 +829,12 @@ rfl
 
 解锁阶乘函数
 
-
 nat_mul_assoc:
 $$
 \P{x:\nat}\P{y:\nat}\P{z:\nat}\eqs{(\mul{x}{(\mul{y}{z})})}{(\mul{(\mul{x}{y})}{z})}
 $$
-```
+
+```type
 intro x
 intro y
 intro z
@@ -830,6 +845,7 @@ rw nat_mul_add x (mul y z') y
 rfl
 qed
 ```
+
 +0.5mg推理素
 
 5不整除7先不做
@@ -849,13 +865,12 @@ $$
 \P{x:nat}\P{y:nat}\eqs{(\pow{x}{(\Nsucc\ y)})}{(\mul{(\pow{x}{y})}{x})}
 $$
 
-
 nat_pow_add:
 $$
 \P{x:nat}\P{y:nat}\P{z:nat}\eqs{(\pow{x}{(\add{y}{z})})}{(\mul{(\pow{x}{y})}{(\pow{x}{z})})}
 $$
 
-```
+```type
 intro x
 intro y
 intro z
@@ -867,12 +882,14 @@ rw nat_mul_assoc (pow x y) (pow x z') x
 rfl
 qed
 ```
+
 +0.66mg推理素
 nat_pow_mul:
 $$
 \P{x:nat}\P{y:nat}\P{z:nat}\eqs{(\pow{x}{(\mul{y}{z})})}{((\pow{(\pow{x}{y})}{z}))}
 $$
-```
+
+```type
 intro x
 intro y
 intro z
@@ -883,8 +900,8 @@ rw z_
 rfl
 qed
 ```
-+0.66mg推理素
 
++0.66mg推理素
 
 前往
 $$
@@ -922,7 +939,8 @@ $\rm{le}:=\L x:\nat.\L y:\nat.\S{n:nat}.(\eqs{(\add{x}{n})}{y})$
 $$
 \P{x:\nat}((\eqs{x}{0})+(\eqs{x}{1}))+(\rm{le}\ 2\ x)
 $$
-```
+
+```type
 intro x
 destruct x
 left
@@ -941,11 +959,13 @@ rw nat_zero_add x
 rfl
 qed
 ```
+
 引理nat_succ_ne_0：
 $$
 \P{x:\nat}\not(\Nsucc\ \eqs{x}{0})
 $$
-```
+
+```type
 intro x
 expand not
 intro h
@@ -960,7 +980,8 @@ qed
 $$
 \P{x:\nat}\P{y:\nat}((\Nsucc\ x)=(\Nsucc\ y))\ra\eqs{x}{y}
 $$
-```
+
+```type
 intro x
 intro y
 intro h
@@ -974,7 +995,7 @@ $$
 \P{x:\nat}\P{y:\nat}\not(\eqs{x}{(\add{x}{(\Nsucc\ y)})})
 $$
 
-```
+```type
 intro x
 intro y
 destruct x
@@ -991,12 +1012,11 @@ rwb nat_succ_add x y
 apply ap pred h
 qed
 ```
+
 $x\ge2$的情况：
 $$
 \P{x:\nat}(\rm{le}\ 2\ x)\ra(\not(\mul{x}{5}=7))
 $$
-
-
 
 ## List
 
@@ -1005,7 +1025,6 @@ $\nil:\List\ ?1$空列表
 $\cons:?1\ra \List\ ?1\ra\List\ ?1$往列表尾部添加元素
 
 两个门都可以用$\nil$开，空列表的类型是任意的$\List\ ?0$
-
 
 ${\rm{fillList}}：=\L a:\Uz.\L x:a.\ind{nat}\ (\L y:\nat.\List\ a)\ \nil\ (\ \L y:\nat.\L z:\List\ a.\cons\ x\ z)$
 
