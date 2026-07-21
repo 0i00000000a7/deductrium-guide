@@ -1,0 +1,7 @@
+node_modules/
+.vitepress/dist/
+.vitepress/cache/
+deductrium-source/
+.DS_Store
+*.log
+Thumbs.db
