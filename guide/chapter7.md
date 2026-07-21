@@ -2,6 +2,54 @@
 title: 第七章 类型论W良基树前后
 ---
 
+$$
+\newcommand{\U}[1]{{\rm{U}_{#1}}}
+\newcommand{\Uz}{{\rm{U}}}
+\newcommand{\True}{{\rm{True}}}
+\newcommand{\true}{{\rm{true}}}
+\newcommand{\False}{{\rm{False}}}
+\newcommand{\L}{\lambda}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\not}{{\rm{not}\ }}
+\newcommand{\eq}[2]{{\rm{eq}\ {#1}\ {#2}}}
+\newcommand{\eqs}[2]{{{#1}\ =\ {#2}}}
+\newcommand{\refl}{{\rm{refl}}}
+\newcommand{\rfl}{{\rm{rfl}}}
+\newcommand{\nat}{{\rm{nat}}}
+\newcommand{\Bool}{{\rm{Bool}}}
+\newcommand{\suc}{{\rm{succ}}}
+\newcommand{\Nsucc}{{\rm{succ}}}
+\newcommand{\ind}[1]{{\rm{ind}\_\rm{#1}}}
+\newcommand{\X}{{\times}}
+\newcommand{\pair}{{\rm{pair}}}
+\newcommand{\Z}{{\rm{Z}}}
+\newcommand{\pos}{{\rm{pos}}}
+\newcommand{\neg}{{\rm{neg}}}
+\newcommand{\Even}{{\rm{Even}}}
+\newcommand{\even}{{\rm{even}}}
+\newcommand{\evenss}{{\rm{evenss}}}
+\newcommand{\List}{{\rm{List}}}
+\newcommand{\[}{{\rm{|}}}
+\newcommand{\]}{{\rm{|}}}
+\newcommand{\hide}[1]{{{\tiny\color{Transparent}#1}}}
+\newcommand{\P}[1]{\underset{#1{\hide{,}}}{{\LARGE \Pi}}}
+\newcommand{\S}[1]{\underset{#1{\hide{,}}}{{\LARGE \Sigma}}}
+\newcommand{\W}[1]{\underset{#1{\hide{,}}}{{\LARGE \rm{W}}}}
+\newcommand{\inl}{{\rm{inl}}}
+\newcommand{\inr}{{\rm{inr}}}
+\newcommand{\add}[2]{{\rm{add}}\ {#1}\ {#2}}
+\newcommand{\double}[1]{{\rm{double}}\ {#1}}
+\newcommand{\mul}[2]{{\rm{mul}}\ {#1}\ {#2}}
+\newcommand{\pow}[2]{{\rm{pow}}\ {#1}\ {#2}}
+\newcommand{\ap}{{\rm{ap}}}
+\newcommand{\pred}{{\rm{pred}}}
+\newcommand{\nil}{{\rm{nil}}}
+\newcommand{\cons}{{\rm{cons}}}
+\newcommand{\Option}{{\rm{Option}}}
+\newcommand{\none}{{\rm{none}}}
+\newcommand{\some}{{\rm{some}}}
+$$
+
 # Deductrium 攻略第七章 类型论W良基树前后
 
 ## List
