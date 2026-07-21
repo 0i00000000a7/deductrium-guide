@@ -131,7 +131,7 @@ $\L x:\True.\true$
 
 下一个门是
 $$
-\P{\False}\False
+\P{False}False
 $$
 因为$\False$类型没有项，我们只能声明输入是$\False$类型然后返回。
 $\L x:\False.x$
@@ -141,15 +141,15 @@ $\L x:\False.x$
 解锁简写非依赖函数类型符号"$\ra$"，输入时用`->`
 
 $$
-\P{a:\Uz}\P{b:\Uz}\P{c:\Uz}a \ra b \ra a
+\P{a:U}\P{b:U}\P{c:U}a \ra b \ra a
 $$
 
 我们先声明这三个项：
-$\L a:\Uz.\L b:\Uz.\L c:\Uz.?0$
+$\L a:\U.\L b:\U.\L c:\U.?0$
 
 然后是$a \rightarrow b \rightarrow a$
 非依赖函数类型即输出不跟随输入变化的函数类型，简单地构造一个：
-$\L a:\Uz.\L b:\Uz.\L c:\Uz.\L x:a.\L y:b.x$
+$\L a:\U.\L b:\U.\L c:\U.\L x:a.\L y:b.x$
 
 
 ## 函数作用
@@ -253,7 +253,7 @@ $$
 \P{a:\Uz}a\ra \not(\not\ a)
 $$
 先把这个抄写到定理列表然后启动证明助手：
-```type
+```
 intro a
 intro h
 expand not
@@ -268,7 +268,7 @@ $$
 \P{a:\Uz}\P{b:\Uz}(a \ra b) \ra ((\not\ b )\ra (\not\ a) )
 $$
 这是推理层的.a30，输入时注意括号
-```type
+```
 intro a 
 intro b 
 intro h 
@@ -285,7 +285,7 @@ qed
 $$
 \P{a:\Uz}\not(\not(\not\ a))\ra \not(a)
 $$
-```type
+```
 intro a
 expand not
 intro h
@@ -327,7 +327,7 @@ $\refl\ (\not\ \False)$
 
 $\eq{(\refl\ \true)}{(\refl\ \true)}$
 使用刚获得的$\rfl$策略：
-```type
+```
 rfl
 qed
 ```
@@ -451,7 +451,7 @@ $\ind{Bool} (\L a:\Bool.(\not (\eq{a}{0b}))\ra(\eq{b}{0b}))$
 我们还需要填入$(\not (\eq{0b}{0b}))\ra(\eq{0b}{1b})$和$((\not (\eq{1b}{0b}))\ra(\eq{1b}{1b}))$的证明
 
 先看后者，这是简单的：
-```type
+```
 intro h
 rfl
 qed
@@ -465,7 +465,7 @@ $case1b:=(\L h:\not (\eq\ 1b\ 0b).\rfl):((\not(\eq{1b}{0b})\ra(\eq{1b}{1b}))$
 
 我们先把这个定义成常量，当然也可以不定义
 $\rm{exfalso}:=\L a:\Uz.\ind{False} (\L x:\False.a)$
-```type
+```
 expand not
 intro h
 apply exfalso (eq 0b 1b)
@@ -493,19 +493,19 @@ $\nat\X\nat$
 只需要用$(a,b)$传入两个自然数类型的项即可，比如$(0,1)$
 
 $$
-\S{x:\nat}\eq{x}{1}
+\S{x:\nat}eq{x}{1}
 $$
 $\S{}$类似一阶逻辑里的$\exists$，使用$\pair$构造
 
 $$
-\pair:\P{b:?2\ra\U{?1}}\P{xa:?2}(b\ xa)\ra\S{x:?2}b\ x
+pair:\P{b:?2\ra\U{?1}}\P{xa:?2}(b\ xa)\ra\S{x:?2}b\ x
 $$
 我们只需要先声明命题$b$，再传入一个成立的值$xa$，最后传入这个对于值的证明$b\ xa$
 就能得到$\S{x:?2}b\ x$
 
 那么：
 $$
-\pair (\L x:\nat.\eq{x}{1}) 1\ \rfl
+pair (\L x:nat.eq{x}{1}) 1\ \rfl
 $$
 
 解锁和类型`+`
@@ -527,12 +527,12 @@ $\False+\True$
 
 这两个策略可以在证明和类型命题时自动填入$\inl/\inr$
 
-> 额外：你可以看看$@\inl\ @0\ @0\ \True\ \False\ \true$的类型是什么
+> 额外：你可以看看$@\inl\ @0\ @0\ True\ False\ true$的类型是什么
 
 $$
 \P{x:Bool}(\eq{x}{0b})+(\eq{x}{1b})
 $$
-```type
+```
 intro x
 destruct x
 left
@@ -547,7 +547,7 @@ qed
 $$
 \P{a:\Uz}\not(\not(a+(\not\ a)))
 $$
-```type
+```
 intro a 
 expand not 
 intro h 
@@ -619,7 +619,7 @@ $$
 $$
 
 用pair或ex策略带入证明：
-```type
+```
 ex nat_is_zero
 simpl
 case
@@ -643,7 +643,7 @@ $$
 
 这里手搓$\ind{eq}$避免2.222mg的付费门
 
-```type
+```
 intro x
 destruct x
 rfl
@@ -672,15 +672,15 @@ $$
 现在证明加法交换nat_add_comm：
 
 $$
-\P{x:\nat}\P{y:\nat}\eqs{(\add{x}{y})}{(\add{y}{x})}
+\P{x:\nat}\P{y:nat}\eqs{(\add{x}{y})}{(\add{y}{x})}
 $$
 
 
 引理nat_succ_add：
 $$
-\P{x:\nat}\P{y:\nat}\eqs{(\add{(\Nsucc\ x)}{y})}{(\Nsucc(\add{x}{y}))}
+\P{x:\nat}\P{y:\nat}\eqs{(\add{(\Nsucc x)}{y})}{(\Nsucc(\add{x}{y}))}
 $$
-```type
+```
 simpl
 intro x
 intro y
@@ -692,7 +692,7 @@ qed
 ```
 
 主证明：
-```type
+```
 intro x
 intro y
 destruct y
@@ -722,7 +722,7 @@ $$
 $$
 \P{x:\nat}\P{y:\nat}\P{z:\nat}\eqs{(\add{x}{(\add{y}{z})})}{(\add{(\add{x}{y})}{z})}
 $$
-```type
+```
 intro x
 intro y
 intro z
@@ -737,7 +737,7 @@ qed
 $$
 \P{x:\nat}\P{y:\nat}\eqs{(\mul{(\Nsucc\ x)}{y})}{(\add{(\mul{x}{y})}{y})}
 $$
-```type
+```
 intro x
 intro y
 destruct y
@@ -752,7 +752,7 @@ qed
 $$
 \P{n:\nat}\eqs{(\mul{n}{2})}{(\double{n})}
 $$
-```type
+```
 intro n
 destruct n
 rfl
@@ -765,7 +765,7 @@ nat_mul_comm:
 $$
 \P{x:\nat}\P{y:\nat}\eqs{(\mul{x}{y})}{(\mul{y}{x})}
 $$
-```type
+```
 intro x
 intro y
 destruct y
@@ -777,10 +777,10 @@ rfl
 qed
 ```
 解锁幂函数$\pow{}{}$
-```type
+```
 factorial2:=Lx:nat.pr1 (ind_nat (Lx:nat.natXnat) (1,1) (Lx:nat.Lt:natXnat.(pr1 t,mul (succ x)(pr0 t))) x)
 ```
-```type
+```
 Combin  :=  λn:nat.λk:nat.ind_nat (λx:nat.nat→nat) (λk:nat.ind_nat (λx:nat.nat) 1 (λx:nat.λx:nat.0) k) (λx:nat.λr:nat→nat.(λr:nat→nat.λk:nat.ind_nat (λx:nat.nat) 1 (λk':nat.λrec:nat.add (r k') (r (succ k'))) k) r) n k
 ```
 +13.86mg推理素
@@ -789,7 +789,7 @@ nat_mul_add:
 $$
 \P{x:\nat}\P{y:\nat}\P{z:\nat}\eqs{(\mul{x}{(\add{y}{z})})}{(\add{(\mul{x}{y})}{(\mul{x}{z})})}
 $$
-```type
+```
 intro x
 intro y
 intro z
@@ -807,7 +807,7 @@ nat_mul_assoc:
 $$
 \P{x:\nat}\P{y:\nat}\P{z:\nat}\eqs{(\mul{x}{(\mul{y}{z})})}{(\mul{(\mul{x}{y})}{z})}
 $$
-```type
+```
 intro x
 intro y
 intro z
@@ -843,7 +843,7 @@ $$
 \P{x:nat}\P{y:nat}\P{z:nat}\eqs{(\pow{x}{(\add{y}{z})})}{(\mul{(\pow{x}{y})}{(\pow{x}{z})})}
 $$
 
-```type
+```
 intro x
 intro y
 intro z
@@ -860,7 +860,7 @@ nat_pow_mul:
 $$
 \P{x:nat}\P{y:nat}\P{z:nat}\eqs{(\pow{x}{(\mul{y}{z})})}{((\pow{(\pow{x}{y})}{z}))}
 $$
-```type
+```
 intro x
 intro y
 intro z
@@ -910,7 +910,7 @@ $\rm{le}:=\L x:\nat.\L y:\nat.\S{n:nat}(\eqs{(\add{x}{n})}{y})$
 $$
 \P{x:\nat}((\eqs{x}{0})+(\eqs{x}{1}))+(\rm{le}\ 2\ x)
 $$
-```type
+```
 intro x
 destruct x
 left
@@ -933,7 +933,7 @@ qed
 $$
 \P{x:\nat}\not(\Nsucc\ \eqs{x}{0})
 $$
-```type
+```
 intro x
 expand not
 intro h
@@ -948,7 +948,7 @@ qed
 $$
 \P{x:\nat}\P{y:\nat}((\Nsucc\ x)=(\Nsucc\ y))\ra\eqs{x}{y}
 $$
-```type
+```
 intro x
 intro y
 intro h
@@ -962,7 +962,7 @@ $$
 \P{x:\nat}\P{y:\nat}\not(\eqs{x}{(\add{x}{(\Nsucc\ y)})})
 $$
 
-```type
+```
 intro x
 intro y
 destruct x
@@ -998,11 +998,11 @@ $$
 \S{f:\nat→\Z}\S{g:\Z→\nat}\P{n:\nat}\eqs{g(f\ n)}{n}\X (f\ 0=0\Z)
 $$
 
-$f:=\ind{nat}(\L\ h:\nat.\Z)\ 0\Z\ (\L h:\nat.\L x:\Z.\pos\ h)$
+$f:=\ind{nat}(\L\ h:\nat.Z)\ 0Z\ (\L h:\nat.\L x:\Z.pos\ h)$
 
-$g:=\ind{Z}(\L\ h:\Z.\nat)\ 0\ (\L\ n:\nat.\succ\ n)\ (\L\ n:\nat.0)$
+$g:=\ind{Z}(\L\ h:\Z.nat)\ 0\ (\L\ n:\nat.succ\ n)\ (\L\ n:\nat.0)$
 
-```type
+```
 ex f
 ex g
 case
@@ -1015,13 +1015,13 @@ qed
 ```
 解锁nat2Z
 
-$\S{f:\nat→\Z}\S{g:\Z→\nat}\P{n:\nat}((\eqs{g\ (f\ n))}{n})\X(\eqs{(f\ n)}{(\nat2\Z\ (\succ\ n))})$
+$\S{f:\nat→\Z}\S{g:\Z→\nat}\P{n:\nat}((\eqs{g\ (f\ n))}{n})\X(\eqs{(f\ n)}{(\nat2\Z\ (succ\ n))})$
 
-$f:=\L{n:\nat.}\nat2\Z\ (\succ\ n)$
+$f:=\L{n:\nat.}\nat2\Z\ (succ\ n)$
 
 $g:=\ind{Z}\ (\L{x:\Z.}\nat)\ 0\ (\L{n:\nat.}n)\ (\L{n:\nat.}0)$
 
-```type
+```
 simpl
 ex f
 ex g
@@ -1034,6 +1034,62 @@ qed
 
 解锁整数后继运算succZ和整数前继运算predZ
 
-$\S{f:\Z→\Z}\P{x:\Z}\eqs{(f\ (\succ\Z\ x))}{(\pred\Z\ (f\ x))}\X((\eqs{(f\ 0\Z)}{0\Z}))$
+$\S{f:\Z→\Z}\P{x:\Z}\eqs{(f\ (succ\Z\ x))}{(pred\Z\ (f\ x))}\X((\eqs{(f\ 0\Z)}{0\Z}))$
 
 $f:=\ind{Z}\ (\L{h:\Z.}\Z)\ 0\Z\ \neg\ \pos$
+
+
+
+
+
+
+# 第七章
+
+
+## List
+
+$\List$类型有两个构造子：
+$\nil:\List\ ?1$空列表
+$\cons:?1\ra \List\ ?1\ra\List\ ?1$往列表尾部添加元素
+
+两个门都可以用$\nil$开，空列表的类型是任意的$\List\ ?0$
+
+
+${\rm{fillList}}：=\L a:\Uz.\L x:a.\ind{nat}\ (\L y:\nat.\List\ a)\ \nil\ (\ \L y:\nat.\L z:\List\ a.\cons\ x\ z)$
+
+解锁Option类型
+
+${\rm{lastList}}:=\L a:\Uz.\ind{List}\ (\L l:\List\ a.\Option\ a)\ \none\ (\L\ x:a.\L y:\List\ a.\L z:\Option\ a.\some\ x)$
+
+
+
+## Even
+
+[怎么过度到W类型？]: #Even
+[List做完解#W门吧]: #
+
+- Even意为偶数 该类型是递归定义的
+  有一个初始构造子even0:Even 0
+  和一个递归构造子evenss
+  其类型为 evenss x: (Even x)→(Even (x+2))
+- 第一道题 Even 0 十分简单
+  因为在上面那段文字里就有答案
+
+
+
+
+
+
+
+## W
+[不对啊，我还没解锁W]: #
+看懂W类型了吗，我猜你看不懂良基树类型
+虽然sup看起来有点像pair，但是$\W{}$类型和$\S{}$类型是截然不同的基础类型
+不管了，直接看归纳，
+
+$\ind{W}:\P{b:?3\ra U{?1}}\P{C:(\W{x:?3}b\ x)\ra\U{?2}}(\P{x:?3}\P{f:b\ x\ra\W{x:?3}b\ x}(\P{y:b\ x}C(f\ y))\ra C(\sup\ b\ x\ f))\ra \P{k:\W{x:?3}b\ x}C\ k$
+
+看懂了吗？我在说一遍：
+
+$\ind{W}:\P{b:?3\ra U{?1}}\P{C:(\W{x:?3}b\ x)\ra\U{?2}}(\P{x:?3}\P{f:b\ x\ra\W{x:?3}b\ x}(\P{y:b\ x}C(f\ y))\ra C(\sup\ b\ x\ f))\ra \P{k:\W{x:?3}b\ x}C\ k$
+
