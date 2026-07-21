@@ -1,5 +1,5 @@
 ---
-title: 第六章 类型论
+title: 第六章 类型论Σ依赖和前后
 ---
 
 $$
@@ -29,11 +29,13 @@ $$
 \newcommand{\even}{{\rm{even}}}
 \newcommand{\evenss}{{\rm{evenss}}}
 \newcommand{\List}{{\rm{List}}}
+\newcommand{\nil}{{\rm{nil}}}
+\newcommand{\cons}{{\rm{cons}}}
 \newcommand{\[}{{\rm{|}}}
 \newcommand{\]}{{\rm{|}}}
-\newcommand{\P}[1]{\underset{#1{\tiny\color{Transparent},}}{{\LARGE \Pi}}}
-\newcommand{\S}[1]{\underset{#1{\tiny\color{Transparent},}}{{\LARGE \Sigma}}}
-\newcommand{\W}[1]{\underset{#1{\tiny\color{Transparent},}}{{\LARGE \rm{W}}}}
+\newcommand{\hide}[1]{{{\tiny\color{Transparent}#1}}}
+\newcommand{\P}[1]{\underset{#1{\hide{,}}}{{\LARGE \Pi}}}
+\newcommand{\S}[1]{\underset{#1{\hide{,}}}{{\LARGE \Sigma}}}
 \newcommand{\inl}{{\rm{inl}}}
 \newcommand{\inr}{{\rm{inr}}}
 \newcommand{\add}[2]{{\rm{add}}\ {#1}\ {#2}}
@@ -42,14 +44,9 @@ $$
 \newcommand{\pow}[2]{{\rm{pow}}\ {#1}\ {#2}}
 \newcommand{\ap}{{\rm{ap}}}
 \newcommand{\pred}{{\rm{pred}}}
-\newcommand{\nil}{{\rm{nil}}}
-\newcommand{\cons}{{\rm{cons}}}
-\newcommand{\Option}{{\rm{Option}}}
-\newcommand{\none}{{\rm{none}}}
-\newcommand{\some}{{\rm{some}}}
 $$
 
-# Deductrium 攻略第六章 类型论
+# Deductrium 攻略第六章 类型论Σ依赖和前后
 
 这里给出一个生存模式游戏进度存档：可直接跳到开启类型论的地方：复制下面的进度码。
 ```text
@@ -1034,6 +1031,79 @@ qed
 
 解锁整数后继运算succZ和整数前继运算predZ
 
-$\S{f:\Z→\Z}\P{x:\Z}\eqs{(f\ (\succ\Z\ x))}{(\pred\Z\ (f\ x))}\X((\eqs{(f\ 0\Z)}{0\Z}))$
+$\S{f:\Z→\Z}\P{x:\Z}\eqs{(f\ (\suc\Z\ x))}{(\pred\Z\ (f\ x))}\X((\eqs{(f\ 0\Z)}{0\Z}))$
 
 $f:=\ind{Z}\ (\L{h:\Z.}\Z)\ 0\Z\ \neg\ \pos$
+
+```
+ex f
+intro x
+case
+destruct x
+rfl
+rfl
+destruct x
+rfl
+rfl
+rfl
+qed
+```
+
+解锁整数相反数运算negZ
+
+使用0.58mg推理素开门获取eq策略
+
+$\P{x:\Z}(\eqs{(\suc\Z\ (\pred\Z\ x))}{x})$
+
+```
+intro x
+destruct x
+rfl
+destruct x
+rfl
+rfl
+rfl
+qed
+```
+
+解锁证据succ_predZ使用证明策略eq后可自动化简相应表达式
+
+$\P{x:\Z}(\eqs{(\pred\Z\ (\suc\Z\ x))}{x})$
+
+```
+intro x
+destruct x
+rfl
+rfl
+destruct x
+rfl
+rfl
+qed
+```
+
+解锁证据pred_succZ使用证明策略eq后可自动化简相应表达式
+
+如果没有解锁ua先跳过这一个
+$\S{p:\eqs{\Z}{\Z}}not(\eqs{p}{\refl\ \Z})$
+
+这个命题要求我们提供一条非平凡的整数路径,使他与rfl不相同
+而negZ正好能提供一条这样的路径
+negZ_eqv:$\Z≃\Z$
+
+```
+expand eqv
+ex negZ
+case
+ex negZ
+intro x
+destruct x
+rfl
+rfl
+rfl
+ex negZ
+intro x
+destruct x
+rfl
+rfl
+rfl
+```
