@@ -1107,3 +1107,28 @@ rfl
 rfl
 rfl
 ```
+
+接着我们定义一个从Z到U的函数
+Z_to_U$:=\ind{Z}\ (\L{x:\Z.}\Uz)\ \True\ (\L{n:\nat.}\True)\ (\L{n:\nat.}\False)$
+
+好了我们可以正式开始证明
+
+```
+ex ua negZ_eqv
+expand not
+intro h
+hyp a:negZ_eqv=eqvrefl Z
+rwb id2eqv_ua negZ_eqv
+apply ap id2eqv h
+hyp b:negZ=Lx:Z.x
+apply ap pr0 a
+hyp c:neg 0=pos 0
+apply ap(Lf:Z->Z.f(pos 0))b
+hyp d:False=True
+apply ap Z_to_U c
+rw d
+exact true
+qed
+```
+
+$\S{f:\Z→\Z→\Z}\P{x:\Z}\P{y:\Z}$
